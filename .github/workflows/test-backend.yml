@@ -41,7 +41,7 @@ jobs:
 
       - name: 🔑 Set environment variables
         run: |
-          echo "FLASK_ENV=production" >> $GITHUB_ENV
+          echo "FLASK_ENV=development" >> $GITHUB_ENV
           echo "PORT=5002" >> $GITHUB_ENV
           echo "REDIS_HOST=localhost" >> $GITHUB_ENV
           echo "REDIS_PORT=6379" >> $GITHUB_ENV
