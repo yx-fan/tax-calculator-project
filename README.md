@@ -37,7 +37,7 @@ docker run --init -p 5001:5001 -it ptsdocker16/interview-test-server
 
 ### Setup environment variables
 ```bash
-mv .env.example .env
+cp .env.example .env
 ```
 
 ### Install Redis on MacOS, for other OS please refer to the official documentation
@@ -67,7 +67,7 @@ docker run --init -p 5001:5001 -it ptsdocker16/interview-test-server
 
 ### Setup environment variables
 ```bash
-mv .docker.env.example .docker.env
+cp .docker.env.example .docker.env
 ```
 
 ### Build, Test, Build and Run the Docker image
@@ -152,6 +152,7 @@ POST /calculate-tax
     "message": "Invalid tax year. Supported tax years are 2019, 2020, 2021, and 2022.",
     "status": 400
 }
+```
 ```json
 {
     "message": "Internal server error. Please try again later.",

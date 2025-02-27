@@ -1,6 +1,6 @@
+import sys
 import requests
 import json
-import sys
 from config import CurrentConfig
 from app.services.redis_service import get_redis_client
 from app.utils import log_info, log_error

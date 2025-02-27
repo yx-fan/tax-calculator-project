@@ -1,9 +1,9 @@
-import logging
 import sys
+import logging
 from flask import Flask
-from app.routes import tax_bp
 from flask_cors import CORS
 from config import CurrentConfig
+from app.routes import tax_bp
 from app.services.redis_service import create_redis_client
 from app.services.cache_data_service import cache_all_tax_brackets
 from app.utils import log_debug, log_info, log_warning, log_error

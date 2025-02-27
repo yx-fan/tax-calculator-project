@@ -1,8 +1,8 @@
 import sys
 import redis
 import functools
-from app.utils import log_info, log_error
 from config import CurrentConfig
+from app.utils import log_info, log_error
 
 # Load Redis Configurations
 REDIS_HOST = CurrentConfig.REDIS_HOST or "localhost"
