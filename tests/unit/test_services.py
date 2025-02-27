@@ -27,4 +27,24 @@ def test_calculate_taxes_invalid_year():
     print("DEBUG: calculate_taxes(100000, 2018) =", result)
 
     assert "error" in result
-    assert result["error"] == "Tax brackets for 2018 not found in cache"
+    assert result["error"] == "Invalid tax year. Only 2019-2022 are supported."
+
+def test_calculate_taxes_invalid_income():
+    """
+    Test calculate_taxes() with invalid income.
+    """
+    result = calculate_taxes("abc", 2022)
+    print("DEBUG: calculate_taxes('abc', 2022) =", result)
+
+    assert "error" in result
+    assert result["error"] == "Invalid annual income. Must be a positive number."
+
+def test_calculate_taxes_invalid_year_type():
+    """
+    Test calculate_taxes() with invalid tax year type.
+    """
+    result = calculate_taxes(100000, "xyz")
+    print("DEBUG: calculate_taxes(100000, 'xyz') =", result)
+
+    assert "error" in result
+    assert result["error"] == "Invalid tax year. Only 2019-2022 are supported."

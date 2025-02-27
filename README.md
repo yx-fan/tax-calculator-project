@@ -10,7 +10,7 @@ Make sure you have the following installed on your local machine:
 - Docker Compose
 - Redis (if you want to run the application server manually)
 
-## Setup Instructions
+## Setup Instructions without Docker
 
 ### Clone the repository
 ```bash
@@ -125,6 +125,37 @@ POST /calculate-tax
         }
     ],
     "total_taxes": 33448.85
+}
+```
+
+### Error Response
+```json
+{
+    "message": "Invalid request. Please send JSON data.",
+    "status": 400
+}
+```
+```json
+{
+    "message": "Missing required fields: 'annual_income' and 'tax_year'.",
+    "status": 400
+}
+```
+```json
+{
+    "message": "Invalid data types. 'annual_income' and 'tax_year' must be numbers.",
+    "status": 400
+}
+```
+```json
+{
+    "message": "Invalid tax year. Supported tax years are 2019, 2020, 2021, and 2022.",
+    "status": 400
+}
+```json
+{
+    "message": "Internal server error. Please try again later.",
+    "status": 500
 }
 ```
 

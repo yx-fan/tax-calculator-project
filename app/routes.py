@@ -41,6 +41,10 @@ def calculate_tax():
             log_error("Invalid data types for 'annual_income' or 'tax_year'. Must be integers.")
             return jsonify({"error": "Invalid data types. 'annual_income' and 'tax_year' must be numbers."}), 400
 
+        if tax_year < 2019 or tax_year > 2022:
+            log_error("Invalid tax year. Must be between 2019 and 2022.")
+            return jsonify({"error": "Invalid tax year. Must be between 2019 and 2022."}), 400
+
         # Call the tax calculation service
         result = calculate_taxes(annual_income, tax_year)
         print("DEBUG: calculate_taxes() returned:", result)
@@ -48,7 +52,7 @@ def calculate_tax():
         # If `calculate_taxes()` returns an error, handle it
         if "error" in result:
             log_error(f"Tax calculation error: {result['error']}")
-            return jsonify("Server error. Please try again later."), 500
+            return jsonify("Internal server error. Please try again later."), 500
 
         # Return successful response
         return jsonify(result), 200
