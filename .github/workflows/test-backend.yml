@@ -1,0 +1,51 @@
+name: CI - Backend Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Backend Tests
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis:latest
+        ports:
+          - 6379:6379
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 5s --health-retries 5
+
+    steps:
+      - name: 🛎 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: 🐳 Start Tax API (5001)
+        run: |
+          docker run --init -p 5001:5001 -d ptsdocker16/interview-test-server
+          sleep 5  # Wait for the server to start
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: 🔑 Set environment variables
+        run: |
+          echo "FLASK_ENV=production" >> $GITHUB_ENV
+          echo "PORT=5002" >> $GITHUB_ENV
+          echo "REDIS_HOST=localhost" >> $GITHUB_ENV
+          echo "REDIS_PORT=6379" >> $GITHUB_ENV
+          echo "TAX_API_BASE_URL=http://localhost:5001/tax-calculator/tax-year/" >> $GITHUB_ENV
+
+      - name: 🧪 Run Pytest
+        run: pytest tests/

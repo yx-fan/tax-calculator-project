@@ -1,0 +1,28 @@
+services:
+  tax-calculator:
+    build: .
+    container_name: tax-calculator
+    restart: always
+    ports:
+      - "5002:5002"
+    depends_on:
+      - redis
+    env_file:
+      - .docker.env
+    networks:
+      - tax-network
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    env_file:
+      - .docker.env
+    ports:
+      - "6381:6379"
+    networks:
+      - tax-network
+
+networks:
+  tax-network:
+    driver: bridge
